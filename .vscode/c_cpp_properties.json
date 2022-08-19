@@ -13,7 +13,8 @@
         "${workspaceFolder}/**",
         "${workspaceFolder}/eurorack",
         "${workspaceFolder}/../../libDaisy//**",
-        "${workspaceFolder}/../../DaisySP//**"
+        "${workspaceFolder}/../../DaisySP//**",
+        "${workspaceFolder}/../../stmlib"
       ],
       "name": "Win32",
       "windowsSdkVersion": "10.0.17763.0"
@@ -31,7 +32,8 @@
         "${workspaceFolder}/**",
         "${workspaceFolder}/eurorack",
         "${workspaceFolder}/../../libDaisy//**",
-        "${workspaceFolder}/../../DaisySP//**"
+        "${workspaceFolder}/../../DaisySP//**",
+        "${workspaceFolder}/../../stmlib"
       ],
       "name": "macOS"
     }
