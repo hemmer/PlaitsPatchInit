@@ -28,7 +28,7 @@ C_INCLUDES += \
 # Can't actually add to CFLAGS.. due to libDaisy stuff
 # silences warning from stmlib JOIN macros
 C_INCLUDES += -Wno-unused-local-typedefs
-OPT = -Os
+OPT = -Os -s
 
 # Core location, and generic makefile.
 SYSTEM_FILES_DIR = $(LIBDAISY_DIR)/core

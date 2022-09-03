@@ -2,10 +2,6 @@
   "tasks": [
     {
       "command": "make clean; make",
-      "group": {
-        "isDefault": true,
-        "kind": "build"
-      },
       "label": "build",
       "options": {
         "cwd": "${workspaceFolder}"
@@ -28,6 +24,10 @@
     },
     {
       "command": "make clean; make; make program-dfu",
+      "group": {
+        "isDefault": true,
+        "kind": "build"
+      },
       "label": "build_and_program_dfu",
       "options": {
         "cwd": "${workspaceFolder}"
