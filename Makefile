@@ -1,10 +1,13 @@
 # Project Name
 TARGET = plaits
 
+# Build as a bootloader app targeting QSPI so the Daisy bootloader can flash it
+APP_TYPE = BOOT_QSPI
+
 # Library Locations
 LIBDAISY_DIR = ../../libDaisy
 DAISYSP_DIR = ../../DaisySP/
-STMLIB_DIR = ../../stmlib
+STMLIB_DIR = eurorack/stmlib
 
 # Sources
 CPP_SOURCES = Plaits.cpp 
