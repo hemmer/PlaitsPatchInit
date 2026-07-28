@@ -8,6 +8,54 @@ Emilie Gillet, port by Ewan Hemingway
 
 Work in progress port of Mutable Instruments Plaits to Patch.init(). 
 
+Clone with `git clone --recurse-submodules`, or initialize an existing checkout
+with `git submodule update --init --recursive`. Then build the tracked
+dependencies and firmware together with `make`.
+
+## Programming
+
+The firmware uses the Daisy bootloader's `BOOT_SRAM` application type so the
+Plaits chord engine is not constrained by the Patch SM's 128 KiB internal
+flash. The application is stored in QSPI flash and copied into SRAM by the
+bootloader when it starts.
+
+### Install the bootloader once
+
+Enter the STM32 ROM bootloader by holding BOOT while pressing and releasing
+RESET, then run:
+
+```sh
+make program-boot
+```
+
+Alternatively, install it with the
+[Daisy Web Programmer](https://electro-smith.github.io/Programmer/). This is
+normally a one-time setup. Repeat it only if the Daisy bootloader is erased or
+replaced, for example by programming a normal `BOOT_NONE` application into
+internal flash, or if you intentionally want to update the bootloader.
+
+`dfu-util` can report an error while requesting status after a successful
+download and leave request because the board has already reset. If the entire
+bootloader file was downloaded successfully, continue with the application
+upload.
+
+### Upload this application
+
+For this and subsequent firmware uploads, do not enter the STM32 ROM
+bootloader again:
+
+1. Press and release RESET without holding BOOT.
+2. During the Daisy bootloader's breathing-LED grace period, press BOOT without
+   pressing RESET to keep the bootloader waiting.
+3. Run `make program-dfu`.
+4. Reset or power-cycle the Patch SM to start the application.
+
+A Daisy bootloader upload reports a `Flash` interface, a 4096-byte transfer
+size, and writes the application to `0x90040000`. If `dfu-util` instead reports
+`Internal Flash` with a 1024-byte transfer size, the board is in the STM32 ROM
+bootloader and cannot write that address. Press RESET alone and retry during
+the Daisy bootloader grace period.
+
 ## Controls
 
 | Pin Name | Pin Location | Function | Comment |

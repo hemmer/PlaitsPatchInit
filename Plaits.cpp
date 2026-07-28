@@ -1,20 +1,18 @@
 #include "daisy_patch_sm.h"
-#include "daisysp.h"
 #include "plaits/dsp/voice.h"
 
 using namespace daisy;
 using namespace patch_sm;
-using namespace daisysp;
 
 DaisyPatchSM hw;
 
 plaits::Voice voice = {};
 plaits::Patch patch = {};
 plaits::Modulations modulations = {};
-char shared_buffer[16384] = {};
+alignas(float) char shared_buffer[16384] = {};
 
-#define BLOCK_SIZE 16
-plaits::Voice::Frame outputPlaits[BLOCK_SIZE];
+constexpr size_t kBlockSize = 16;
+plaits::Voice::Frame outputPlaits[kBlockSize];
 
 
 Switch button;
@@ -43,9 +41,7 @@ void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, s
 	patch.timbre_modulation_amount = 0.f;
 	patch.morph_modulation_amount = 0.f;
 
-	float voct_cv = hw.GetAdcValue(CV_5);
-	float voct    = fmap(voct_cv, 0.f, 60.f);
-	modulations.note = voct;
+	modulations.note = hw.GetAdcValue(CV_5) * 60.f;
 
 	// todo: work out how modulations.timbre_patched etc can work
 	modulations.harmonics = hw.GetAdcValue(CV_6);
@@ -61,7 +57,7 @@ void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, s
 		modulations.trigger_patched = false;
 	}
 
-	voice.Render(patch, modulations, outputPlaits, BLOCK_SIZE);
+	voice.Render(patch, modulations, outputPlaits, kBlockSize);
 
 	for (size_t i = 0; i < size; i++) {
 		OUT_L[i] = outputPlaits[i].out / 32768.f;
@@ -72,7 +68,7 @@ void AudioCallback(AudioHandle::InputBuffer in, AudioHandle::OutputBuffer out, s
 
 int main(void) {
 	hw.Init();
-	hw.SetAudioBlockSize(BLOCK_SIZE); // number of samples handled per callback
+	hw.SetAudioBlockSize(kBlockSize); // number of samples handled per callback
 	hw.SetAudioSampleRate(SaiHandle::Config::SampleRate::SAI_48KHZ);
 	button.Init(hw.B7);
 	toggle.Init(hw.B8);

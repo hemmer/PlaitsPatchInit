@@ -1,3 +1,6 @@
 [submodule "eurorack"]
 	path = eurorack
 	url = https://github.com/hemmer/pichenettes-eurorack-patch.git
+[submodule "libDaisy"]
+	path = libDaisy
+	url = https://github.com/electro-smith/libDaisy.git
