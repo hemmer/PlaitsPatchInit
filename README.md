@@ -72,6 +72,47 @@ the Daisy bootloader grace period.
 | Audio Out Left | B2 | Main out | ... |
 | Audio Out Right | C1 | Aux out | ... |
 
+## Synthesis models
+
+The firmware includes all 24 models from the final Plaits v1.2 firmware. B7
+and Gate In 2 advance through them in this order:
+
+1. Virtual analog
+2. Waveshaping
+3. Two-operator FM
+4. Granular formant
+5. Additive
+6. Wavetable
+7. Chords
+8. Speech
+9. Granular cloud
+10. Filtered noise
+11. Particle noise
+12. Inharmonic string
+13. Modal resonator
+14. Bass drum
+15. Snare drum
+16. Hi-hat
+17. Virtual analog with VCF
+18. Phase distortion / phase modulation
+19. Six-operator FM: basses and synths
+20. Six-operator FM: keyboards, strings and percussion
+21. Six-operator FM: organs, pads, strings and brass
+22. Wave terrain
+23. String machine
+24. Chiptune
+
+The built-in factory patches are available in all three six-operator FM
+models. Loading custom DX7 banks, wavetables or wave terrains through the
+original module's audio data-transfer mechanism is not implemented on Patch
+SM.
+
+Chord-based models use Jon Butler's extended 17-chord table.
+
+See the [official Plaits v1.2 release
+notes](https://pichenettes.github.io/mutable-instruments-documentation/modules/plaits/firmware/)
+for the controls and outputs of the eight additional models.
+
 ### License
 
 This program is free software: you can redistribute it and/or modify it under the terms of the [GNU General Public License](https://www.gnu.org/licenses/gpl-3.0.en.html) as published by the [Free Software Foundation](https://www.fsf.org/), either version 3 of the License, or (at your option) any later version.

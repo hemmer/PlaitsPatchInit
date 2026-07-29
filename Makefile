@@ -10,10 +10,16 @@ LIBDAISY_DIR = libDaisy
 STMLIB_DIR = eurorack/stmlib
 LIBDAISY_ARCHIVE = $(LIBDAISY_DIR)/build/libdaisy.a
 
+# Use Jon Butler's extended 17-chord table in chord-based engines.
+C_DEFS += -DJON_CHORDS
+
 # Sources
 CPP_SOURCES = Plaits.cpp 
 CC_SOURCES += $(wildcard eurorack/plaits/dsp/*.cc)
+CC_SOURCES += $(wildcard eurorack/plaits/dsp/chords/*.cc)
 CC_SOURCES += $(wildcard eurorack/plaits/dsp/engine/*.cc)
+CC_SOURCES += $(wildcard eurorack/plaits/dsp/engine2/*.cc)
+CC_SOURCES += $(wildcard eurorack/plaits/dsp/fm/*.cc)
 CC_SOURCES += $(wildcard eurorack/plaits/dsp/speech/*.cc)
 CC_SOURCES += $(wildcard eurorack/plaits/dsp/physical_modelling/*.cc)
 CC_SOURCES += eurorack/plaits/resources.cc
